@@ -10,7 +10,10 @@ urls = clipboard_text.strip().split('\n')
 all_content = ""
 
 # 各URLに対して処理を行う
-for url in urls:
+for i, url in enumerate(urls):
+    if i >= 10:
+        break
+
     url = url.strip()
     if url:
         try:
@@ -22,6 +25,9 @@ for url in urls:
             # BeautifulSoupを使用してテキストコンテンツを抽出
             soup = BeautifulSoup(html_content, 'html.parser')
             text_content = soup.get_text(separator='\n', strip=True)
+
+            # テキストコンテンツを10000文字に制限
+            text_content = text_content[:10000]
 
             # コンテンツを追加
             all_content += text_content + "\n\n"
